@@ -1,8 +1,9 @@
-// const { useState, useEffect } = require("react");
-import {useState,useEffect, useContext ,createContext} from "react";
+//const { useState, useEffect } = require("react");
+import { createContext,useState,useEffect } from "react";
 import axios from "axios";
 import Input from "./inputbox";
 import Span from "./Span";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const ShareData=createContext()
 
@@ -14,6 +15,16 @@ function Images(){
     console.log("line no 14")
 
     const [gallery,setgallery]=useState([]);
+
+    const [selectimage,setselectimage] = useState(null)
+
+    const navigate=useNavigate()
+
+    const Handleimageclick =(image)=>{
+        setselectimage(image);
+        navigate("/seletedimage");
+        console.log("hello")
+    }
 
     let apiKey="06bdd190cc4ed1e9174773bc2cf81695"
     let place = tag ;
@@ -29,13 +40,20 @@ function Images(){
         
     },[tag])
     
-    return <ShareData.Provider  value={{  Value:tag, settag  }}>
+    return <ShareData.Provider  value={{  Value:tag, settag , selectedimage:selectimage }}>
         <Input/>
         <Span   /*onclickhandler={onclickHandler}  tag={tag}*//>
-        <div id="image-box"  >
-        {gallery.map((photos,index)=>  
-        <img src ={`https://live.staticflickr.com/${photos.server}/${photos.id}_${photos.secret}.jpg`} alt={photos.title} key={index} className="img"/>
+        <div id="image-box" >
+        {!selectimage && gallery.map((photos,index)=><div id="foroutlet" >
+
+           <img src ={`https://live.staticflickr.com/${photos.server}/${photos.id}_${photos.secret}.jpg`} 
+           alt={photos.title} key={index} className="img" onClick={()=>Handleimageclick(photos)}/>
+           
+           </div>
         )}
+        {console.log("hello from tag",tag)}
+        {console.log("hello from selectimage",selectimage)}
+        <Outlet context={{selectimage,setselectimage}}/>
         </div>
     </ShareData.Provider> 
 }

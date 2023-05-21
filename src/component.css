@@ -14,13 +14,18 @@
 #image-box{
     border: 2px solid;
     margin: 10px;
-    /* display: flex;
-    flex-flow: row wrap; */
-    overflow: hidden;
+    display: flex;
+    flex-flow: row wrap;
+    overflow:visible;
 }
 
+/* #foroutlet{
+   /* display: flex;
+   flex-flow: row wrap; 
+} */
+
 .img:hover{
-   transform: scale(1.2);
+   transform: scale(2.2);
 }
 
 .img{
@@ -28,4 +33,26 @@
     height: 100px;
     width: 100px;
     transition: transform 0.3s ease-out;
+}
+
+#selectedimage{
+    /* margin-top:20px; */
+    display: flex;
+    /* gap: 10%; */
+}
+
+#selectedbutt{
+    /* float: left; */
+    display: inline-block;
+    margin: 5%;
+    background-color: black;
+    width:20%;
+    height:10%;
+    font-size: medium;
+    font-weight: bolder;
+}
+
+#img{
+    width: 600px;
+    margin-left: 230px;
 }
